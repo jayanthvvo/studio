@@ -1,3 +1,4 @@
+
 "use client";
 
 import {
@@ -40,12 +41,6 @@ export default function StudentDashboardPage() {
             Welcome back, {studentName}. Track and manage your dissertation.
           </p>
         </div>
-        <Button asChild>
-          <Link href="/student/submissions/new">
-            <PlusCircle className="mr-2 h-4 w-4" />
-            New Submission
-          </Link>
-        </Button>
       </div>
 
        {upcomingMilestone && (
@@ -56,9 +51,17 @@ export default function StudentDashboardPage() {
               Upcoming Deadline
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-semibold">{upcomingMilestone.title}</p>
-            <p className="text-lg text-muted-foreground">Due by {upcomingMilestone.dueDate}</p>
+          <CardContent className="flex items-center justify-between">
+            <div>
+              <p className="text-2xl font-semibold">{upcomingMilestone.title}</p>
+              <p className="text-lg text-muted-foreground">Due by {upcomingMilestone.dueDate}</p>
+            </div>
+            <Button asChild>
+              <Link href="/student/submissions/new">
+                <PlusCircle className="mr-2 h-4 w-4" />
+                Add Submission
+              </Link>
+            </Button>
           </CardContent>
         </Card>
       )}
