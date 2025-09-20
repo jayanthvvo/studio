@@ -1,3 +1,4 @@
+
 "use client";
 
 import {
@@ -7,13 +8,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { getMilestonesByStudent } from "@/lib/data";
+import { getMilestonesByStudent, milestones as allMilestones } from "@/lib/data";
 import { Milestone } from "@/lib/types";
 import { useState, useEffect } from "react";
-import { CheckCircle, Clock, Circle } from 'lucide-react';
+import { CheckCircle, Clock, Circle, CalendarIcon } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { useToast } from "@/hooks/use-toast";
+import { format } from 'date-fns';
 
 const statusInfo = {
   Complete: { icon: CheckCircle, color: 'text-green-500' },
@@ -24,10 +29,36 @@ const statusInfo = {
 export default function TimelinePage() {
   const [milestones, setMilestones] = useState<Milestone[]>([]);
   const studentName = "Alice Johnson"; // Hardcoded for this example
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>();
+  const [openPopoverId, setOpenPopoverId] = useState<string | null>(null);
+  const { toast } = useToast();
 
   useEffect(() => {
     setMilestones(getMilestonesByStudent(studentName));
   }, []);
+
+  const handleUpdateDueDate = (milestoneId: string) => {
+    if (selectedDate) {
+      const updatedMilestones = milestones.map((m) =>
+        m.id === milestoneId ? { ...m, dueDate: format(selectedDate, 'yyyy-MM-dd') } : m
+      );
+      
+      // Also update the master data for this demo
+      const index = allMilestones.findIndex(m => m.id === milestoneId);
+      if(index !== -1) {
+          allMilestones[index].dueDate = format(selectedDate, 'yyyy-MM-dd');
+      }
+      
+      setMilestones(updatedMilestones);
+      setOpenPopoverId(null);
+      setSelectedDate(undefined);
+      toast({
+        title: "Due Date Updated",
+        description: `The due date has been successfully set.`,
+      });
+    }
+  };
+
 
   return (
     <div className="space-y-6">
@@ -84,7 +115,24 @@ export default function TimelinePage() {
                                 ) : (
                                     <Button variant="secondary" size="sm" disabled>No Submission</Button>
                                 )}
-                                {milestone.status === 'Pending' && <Button size="sm">Set Due Date</Button>}
+                                {milestone.status === 'Pending' && (
+                                    <Popover open={openPopoverId === milestone.id} onOpenChange={(isOpen) => setOpenPopoverId(isOpen ? milestone.id : null)}>
+                                        <PopoverTrigger asChild>
+                                            <Button size="sm">Set Due Date</Button>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="w-auto p-0">
+                                            <Calendar
+                                                mode="single"
+                                                selected={selectedDate}
+                                                onSelect={setSelectedDate}
+                                                initialFocus
+                                            />
+                                            <div className="p-2 border-t flex justify-end">
+                                                 <Button size="sm" onClick={() => handleUpdateDueDate(milestone.id)} disabled={!selectedDate}>Update</Button>
+                                            </div>
+                                        </PopoverContent>
+                                    </Popover>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -98,3 +146,4 @@ export default function TimelinePage() {
     </div>
   );
 }
+

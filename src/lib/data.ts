@@ -98,7 +98,7 @@ export const getMilestonesByStudent = (studentName: string): Milestone[] => {
   // In a real app, you'd filter milestones by student ID.
   // For this demo, we'll return all milestones for Alice Johnson.
   if (studentName === "Alice Johnson") {
-    return milestones;
+    return JSON.parse(JSON.stringify(milestones));
   }
   return [];
 };
