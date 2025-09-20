@@ -57,6 +57,20 @@ export const submissions: Submission[] = [
     content: `Proposal: This dissertation aims to analyze and compare sustainable urban development strategies in three major megacities: Tokyo, Mexico City, and Lagos. The research will focus on key areas such as public transportation, waste management, green infrastructure, and housing policy. By employing a mixed-methods approach, including policy analysis, statistical data, and case studies, this study seeks to identify best practices and common challenges in achieving urban sustainability. The expected outcome is a set of policy recommendations that can be adapted to other rapidly growing urban centers around the world. The research will contribute to the broader academic discourse on urban planning and environmental science, providing valuable insights for policymakers and urban developers.`,
     feedback: null,
   },
+   {
+    id: '5',
+    student: {
+      name: 'Alice Johnson',
+      avatarUrl: 'https://picsum.photos/seed/1/100/100',
+    },
+    title: 'Chapter 2: Literature Review',
+    status: 'In Review',
+    deadline: '2024-09-05',
+    grade: null,
+    submittedAt: '2024-09-01',
+    content: 'This is the literature review for my dissertation on the impact of AI on modern literature.',
+    feedback: null,
+  }
 ];
 
 export const messages: Message[] = [
@@ -69,8 +83,8 @@ export const messages: Message[] = [
 export const milestones: Milestone[] = [
   { id: 'm1', title: 'Dissertation Proposal', dueDate: '2024-07-20', status: 'Complete', submissionId: '1' },
   { id: 'm2', title: 'Chapter 1: Introduction', dueDate: '2024-08-15', status: 'Complete', submissionId: '1' },
-  { id: 'm3', title: 'Chapter 2: Literature Review', dueDate: '2024-09-05', status: 'Pending' },
-  { id: 'm4', title: 'Chapter 3: Methodology', dueDate: '2024-09-25', status: 'Upcoming' },
+  { id: 'm3', title: 'Chapter 2: Literature Review', dueDate: '2024-09-05', status: 'Complete', submissionId: '5' },
+  { id: 'm4', title: 'Chapter 3: Methodology', dueDate: '2024-09-25', status: 'Pending' },
   { id: 'm5', title: 'Chapter 4: Results', dueDate: '2024-10-15', status: 'Upcoming' },
   { id: 'm6', title: 'Final Draft', dueDate: '2024-11-15', status: 'Upcoming' },
 ];

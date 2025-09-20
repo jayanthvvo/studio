@@ -14,21 +14,31 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { submissions } from "@/lib/data";
+import { submissions, milestones } from "@/lib/data";
 import Link from "next/link";
 import { ArrowLeft, Send } from "lucide-react";
 
 export default function NewSubmissionPage() {
   const router = useRouter();
   const { toast } = useToast();
-  const [title, setTitle] = useState("");
+  
+  const upcomingMilestone = milestones.find(m => m.status === 'Pending');
+
+  const [title, setTitle] = useState(upcomingMilestone?.title || "");
   const [content, setContent] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // In a real app, you'd send this to a server.
-    // For now, we'll add it to our mock data.
+    if (!upcomingMilestone) {
+        toast({
+            title: "No Upcoming Milestone",
+            description: "There is no pending milestone to submit for.",
+            variant: "destructive",
+        });
+        return;
+    }
+
     const newSubmission = {
       id: (submissions.length + 1).toString(),
       student: {
@@ -37,14 +47,27 @@ export default function NewSubmissionPage() {
       },
       title,
       content,
-      status: "Pending" as const,
-      deadline: "2024-10-01", // Example deadline
+      status: "In Review" as const,
+      deadline: upcomingMilestone.dueDate,
       grade: null,
       submittedAt: new Date().toLocaleDateString('en-CA'),
       feedback: null,
     };
 
     submissions.unshift(newSubmission);
+
+    const milestoneIndex = milestones.findIndex(m => m.id === upcomingMilestone.id);
+    if(milestoneIndex !== -1) {
+        milestones[milestoneIndex].status = "Complete";
+        milestones[milestoneIndex].submissionId = newSubmission.id;
+        
+        // Make the next 'Upcoming' milestone 'Pending'
+        const nextMilestoneIndex = milestones.findIndex(m => m.status === 'Upcoming');
+        if(nextMilestoneIndex !== -1) {
+            milestones[nextMilestoneIndex].status = 'Pending';
+        }
+    }
+
 
     toast({
       title: "Submission Successful!",
@@ -63,9 +86,9 @@ export default function NewSubmissionPage() {
 
       <Card className="max-w-3xl mx-auto">
         <CardHeader>
-          <CardTitle>New Submission</CardTitle>
+          <CardTitle>New Submission for "{upcomingMilestone?.title}"</CardTitle>
           <CardDescription>
-            Submit a new dissertation draft or proposal for review.
+            Submit your draft for the deadline on {upcomingMilestone?.dueDate}.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -91,7 +114,7 @@ export default function NewSubmissionPage() {
                 rows={15}
               />
             </div>
-            <Button type="submit">
+            <Button type="submit" disabled={!upcomingMilestone}>
               <Send className="mr-2 h-4 w-4" />
               Submit for Review
             </Button>
