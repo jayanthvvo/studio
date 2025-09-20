@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -15,6 +16,7 @@ import {
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { ThesisFlowLogo } from "@/components/logo";
 import { ChatInterface } from "../messaging/chat-interface";
+import { useMessaging } from "@/contexts/messaging-context";
 
 export const navItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
@@ -25,6 +27,8 @@ export const navItems = [
 
 export function SidebarItems() {
   const pathname = usePathname();
+  const { isChatOpen, openChat, closeChat } = useMessaging();
+
   return (
     <>
       <SidebarHeader className="border-b">
@@ -51,7 +55,7 @@ export function SidebarItems() {
             </SidebarMenuItem>
           ))}
           <SidebarMenuItem>
-             <Sheet>
+             <Sheet open={isChatOpen} onOpenChange={(isOpen) => isOpen ? openChat() : closeChat()}>
               <SheetTrigger asChild>
                 <SidebarMenuButton tooltip={{ children: 'Messages' }} className="w-full justify-start">
                     <MessageSquare />

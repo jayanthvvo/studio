@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from "react";
@@ -22,6 +23,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Submission } from "@/lib/types";
+import { useMessaging } from "@/contexts/messaging-context";
 
 const statusInfo: { [key: string]: { icon: React.ElementType, variant: "default" | "secondary" | "destructive" | "outline" } } = {
   Approved: { icon: CheckCircle, variant: "default" },
@@ -32,9 +34,15 @@ const statusInfo: { [key: string]: { icon: React.ElementType, variant: "default"
 
 export function SubmissionsTable({ submissions }: { submissions: Submission[] }) {
   const router = useRouter();
+  const { openChat } = useMessaging();
 
   const handleViewSubmission = (id: string) => {
     router.push(`/submissions/${id}`);
+  };
+
+  const handleMessageStudent = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    openChat();
   };
 
   return (
@@ -103,7 +111,7 @@ export function SubmissionsTable({ submissions }: { submissions: Submission[] })
                   >
                     View
                   </DropdownMenuItem>
-                  <DropdownMenuItem onSelect={(e) => e.stopPropagation()}>Message Student</DropdownMenuItem>
+                  <DropdownMenuItem onSelect={(e) => handleMessageStudent(e as unknown as React.MouseEvent)}>Message Student</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </TableCell>
