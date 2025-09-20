@@ -22,7 +22,7 @@ export default function NewSubmissionPage() {
   const router = useRouter();
   const { toast } = useToast();
   
-  const upcomingMilestone = milestones.find(m => m.status === 'Pending');
+  const upcomingMilestone = milestones.find(m => m.status === 'In Progress');
 
   const [title, setTitle] = useState(upcomingMilestone?.title || "");
   const [content, setContent] = useState("");

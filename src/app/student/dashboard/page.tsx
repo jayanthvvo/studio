@@ -30,7 +30,7 @@ export default function StudentDashboardPage() {
     setMilestones(getMilestonesByStudent(studentName));
   }, [studentName]);
   
-  const upcomingMilestone = milestones.find(m => m.status === 'Pending');
+  const upcomingMilestone = milestones.find(m => m.status === 'In Progress' || m.status === 'Pending');
 
   return (
     <div className="space-y-6">
@@ -43,7 +43,7 @@ export default function StudentDashboardPage() {
         </div>
       </div>
 
-       {upcomingMilestone && (
+       {upcomingMilestone && upcomingMilestone.status === 'In Progress' && !upcomingMilestone.submissionId && (
         <Card className="bg-primary/10 border-primary/40">
           <CardHeader>
             <CardTitle className="flex items-center gap-3 text-primary">

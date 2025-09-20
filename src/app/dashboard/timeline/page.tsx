@@ -11,7 +11,7 @@ import {
 import { getMilestonesByStudent, milestones as allMilestones } from "@/lib/data";
 import { Milestone } from "@/lib/types";
 import { useState, useEffect } from "react";
-import { CheckCircle, Clock, Circle, CalendarIcon } from 'lucide-react';
+import { CheckCircle, Clock, Circle, CalendarIcon, Loader2 } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -22,6 +22,7 @@ import { format } from 'date-fns';
 
 const statusInfo = {
   Complete: { icon: CheckCircle, color: 'text-green-500' },
+  'In Progress': { icon: Loader2, color: 'text-blue-500' },
   Pending: { icon: Clock, color: 'text-yellow-500' },
   Upcoming: { icon: Circle, color: 'text-muted-foreground' },
 };
@@ -40,13 +41,14 @@ export default function TimelinePage() {
   const handleUpdateDueDate = (milestoneId: string) => {
     if (selectedDate) {
       const updatedMilestones = milestones.map((m) =>
-        m.id === milestoneId ? { ...m, dueDate: format(selectedDate, 'yyyy-MM-dd') } : m
+        m.id === milestoneId ? { ...m, dueDate: format(selectedDate, 'yyyy-MM-dd'), status: 'In Progress' as const } : m
       );
       
       // Also update the master data for this demo
       const index = allMilestones.findIndex(m => m.id === milestoneId);
       if(index !== -1) {
           allMilestones[index].dueDate = format(selectedDate, 'yyyy-MM-dd');
+          allMilestones[index].status = 'In Progress';
       }
       
       setMilestones(updatedMilestones);
@@ -99,7 +101,7 @@ export default function TimelinePage() {
                     {/* Status Icon */}
                     <div className="absolute left-0 top-1 flex items-center justify-center -translate-x-1/2">
                         <div className={cn("h-6 w-6 rounded-full bg-background flex items-center justify-center", milestone.status === 'Complete' ? 'text-primary' : 'text-muted-foreground')}>
-                            <StatusIcon className={cn("h-8 w-8 p-1 rounded-full bg-background", statusColor)} />
+                            <StatusIcon className={cn("h-8 w-8 p-1 rounded-full bg-background", statusColor, milestone.status === 'In Progress' && 'animate-spin')} />
                         </div>
                     </div>
                     
@@ -146,4 +148,5 @@ export default function TimelinePage() {
     </div>
   );
 }
+
 

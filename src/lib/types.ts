@@ -22,10 +22,12 @@ export type Message = {
     timestamp: string;
 };
 
+export type MilestoneStatus = 'Complete' | 'In Progress' | 'Pending' | 'Upcoming';
+
 export type Milestone = {
   id: string;
   title: string;
   dueDate: string;
-  status: 'Complete' | 'Pending' | 'Upcoming';
+  status: MilestoneStatus;
   submissionId?: string;
 };
