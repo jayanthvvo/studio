@@ -6,16 +6,38 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Save } from "lucide-react";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 export default function ReviewForm({ submission }: { submission: Submission }) {
+  const [feedback, setFeedback] = useState(submission.feedback || "");
+  const [grade, setGrade] = useState(submission.grade || "");
+  const { toast } = useToast();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // In a real app, you'd call an API to save this data.
+    // For now, we'll just show a toast notification.
+    console.log({
+      submissionId: submission.id,
+      feedback,
+      grade,
+    });
+    toast({
+      title: "Review Saved!",
+      description: "Your feedback and grade have been saved successfully.",
+    });
+  };
+
   return (
-    <form className="space-y-4">
+    <form className="space-y-4" onSubmit={handleSubmit}>
       <div className="space-y-2">
         <Label htmlFor="feedback">Feedback</Label>
         <Textarea
           id="feedback"
           placeholder="Provide detailed feedback for the student..."
-          defaultValue={submission.feedback || ""}
+          value={feedback}
+          onChange={(e) => setFeedback(e.target.value)}
           rows={8}
         />
       </div>
@@ -24,7 +46,8 @@ export default function ReviewForm({ submission }: { submission: Submission }) {
         <Input
           id="grade"
           placeholder="e.g., A-, B+"
-          defaultValue={submission.grade || ""}
+          value={grade}
+          onChange={(e) => setGrade(e.g.value)}
           className="max-w-xs"
         />
       </div>
