@@ -23,25 +23,26 @@ const statusInfo: { [key: string]: { icon: React.ElementType, variant: "default"
 };
 
 export default function SubmissionPage({ params }: { params: { id: string } }) {
+  const { id } = params;
   const [submission, setSubmission] = useState<Submission | null>(null);
 
   useEffect(() => {
-    const foundSubmission = getSubmissionById(params.id);
+    const foundSubmission = getSubmissionById(id);
     if (foundSubmission) {
       setSubmission(foundSubmission);
     }
-  }, [params.id]);
+  }, [id]);
 
   useEffect(() => {
     // This is a workaround to update the submission data since we are using a static data source.
     // In a real app, this would be handled by re-fetching the data or using a state management library.
     if (submission) {
-      const updatedSubmission = initialSubmissions.find(s => s.id === params.id);
+      const updatedSubmission = initialSubmissions.find(s => s.id === id);
       if (updatedSubmission && JSON.stringify(updatedSubmission) !== JSON.stringify(submission)) {
           setSubmission(updatedSubmission);
       }
     }
-  }, [params.id, submission]);
+  }, [id, submission]);
 
   if (!submission) {
     // Render a loading state or return null until the submission is loaded client-side
