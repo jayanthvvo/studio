@@ -26,8 +26,7 @@ export default function SubmissionPage({ params }: { params: { id: string } }) {
   const [submission, setSubmission] = useState<Submission | null>(null);
 
   useEffect(() => {
-    const id = params.id;
-    const foundSubmission = getSubmissionById(id);
+    const foundSubmission = getSubmissionById(params.id);
     if (foundSubmission) {
       setSubmission(foundSubmission);
     }
@@ -37,8 +36,7 @@ export default function SubmissionPage({ params }: { params: { id: string } }) {
     // This is a workaround to update the submission data since we are using a static data source.
     // In a real app, this would be handled by re-fetching the data or using a state management library.
     if (submission) {
-      const id = params.id;
-      const updatedSubmission = initialSubmissions.find(s => s.id === id);
+      const updatedSubmission = initialSubmissions.find(s => s.id === params.id);
       if (updatedSubmission && JSON.stringify(updatedSubmission) !== JSON.stringify(submission)) {
           setSubmission(updatedSubmission);
       }
