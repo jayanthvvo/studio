@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { SendHorizonal } from "lucide-react";
 import { useState } from "react";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { Separator } from "../ui/separator";
+import { SheetHeader, SheetTitle } from "../ui/sheet";
 
 export function ChatInterface() {
   const [messages, setMessages] = useState(initialMessages);
@@ -18,13 +18,15 @@ export function ChatInterface() {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="flex items-center p-4 border-b">
-        <Avatar className="h-9 w-9 mr-4">
-          <AvatarImage src={studentAvatar} alt="Alice Johnson" data-ai-hint="woman portrait" />
-          <AvatarFallback>AJ</AvatarFallback>
-        </Avatar>
-        <h2 className="text-xl font-semibold">Alice Johnson</h2>
-      </div>
+      <SheetHeader className="p-4 border-b">
+        <div className="flex items-center">
+            <Avatar className="h-9 w-9 mr-4">
+            <AvatarImage src={studentAvatar} alt="Alice Johnson" data-ai-hint="woman portrait" />
+            <AvatarFallback>AJ</AvatarFallback>
+            </Avatar>
+            <SheetTitle>Alice Johnson</SheetTitle>
+        </div>
+      </SheetHeader>
       <ScrollArea className="flex-1">
         <div className="p-4 space-y-4">
           {messages.map((message) => (
