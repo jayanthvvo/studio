@@ -6,10 +6,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { ThesisFlowLogo } from "@/components/logo";
 import Link from "next/link";
+import { User, UserCog } from "lucide-react";
 
 export default function LoginPage() {
   return (
@@ -20,38 +19,24 @@ export default function LoginPage() {
       </div>
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardTitle className="text-2xl">Login As</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account.
+            Please select your role to continue.
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="grid gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="m@example.com"
-                required
-              />
-            </div>
-            <div className="grid gap-2">
-              <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
-                <Link
-                  href="#"
-                  className="ml-auto inline-block text-sm underline"
-                >
-                  Forgot your password?
-                </Link>
-              </div>
-              <Input id="password" type="password" required />
-            </div>
-            <Button type="submit" className="w-full" asChild>
-              <Link href="/dashboard">Login</Link>
-            </Button>
-          </div>
+        <CardContent className="grid gap-4">
+          <Button asChild variant="outline">
+            <Link href="/login/student">
+              <User className="mr-2" />
+              Student
+            </Link>
+          </Button>
+          <Button asChild>
+            <Link href="/login/supervisor">
+              <UserCog className="mr-2" />
+              Supervisor
+            </Link>
+          </Button>
         </CardContent>
       </Card>
     </div>
