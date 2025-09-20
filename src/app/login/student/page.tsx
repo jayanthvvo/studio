@@ -34,6 +34,7 @@ export default function StudentLoginPage() {
                 type="email"
                 placeholder="student@university.edu"
                 required
+                defaultValue="a.johnson@university.edu"
               />
             </div>
             <div className="grid gap-2">
@@ -46,10 +47,10 @@ export default function StudentLoginPage() {
                   Forgot your password?
                 </Link>
               </div>
-              <Input id="password" type="password" required />
+              <Input id="password" type="password" required defaultValue="password" />
             </div>
             <Button type="submit" className="w-full" asChild>
-              <Link href="/dashboard">Login</Link>
+              <Link href="/student/dashboard">Login</Link>
             </Button>
           </div>
         </CardContent>
