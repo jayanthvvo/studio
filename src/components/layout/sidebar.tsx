@@ -20,7 +20,7 @@ import { useMessaging } from "@/contexts/messaging-context";
 
 export const navItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
-  { href: "#", icon: BookCopy, label: "Submissions", disabled: true },
+  { href: "/dashboard/submissions", icon: BookCopy, label: "Submissions" },
   { href: "/dashboard/profile", icon: User, label: "Profile" },
   { href: "/dashboard/settings", icon: Settings, label: "Settings" },
 ];
