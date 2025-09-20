@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -15,10 +16,14 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { BookCopy, MessageSquare } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { ChatInterface } from "@/components/messaging/chat-interface";
+import { useMessaging } from "@/contexts/messaging-context";
 
 export default function StudentHeader() {
   const studentAvatar = PlaceHolderImages.find(p => p.id === 'avatar-1')?.imageUrl ?? "https://picsum.photos/seed/1/100/100";
   const router = useRouter();
+  const { isChatOpen, openChat, closeChat } = useMessaging();
 
   const handleLogout = () => {
     router.push('/login');
@@ -35,10 +40,17 @@ export default function StudentHeader() {
                 <BookCopy className="h-5 w-5" />
                 My Submissions
             </Link>
-             <Link href="#" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
-                <MessageSquare className="h-5 w-5" />
-                Messages
-            </Link>
+             <Sheet open={isChatOpen} onOpenChange={(isOpen) => isOpen ? openChat() : closeChat()}>
+              <SheetTrigger asChild>
+                <Button variant="link" className="flex items-center gap-2 text-muted-foreground hover:text-foreground p-0 h-auto">
+                    <MessageSquare className="h-5 w-5" />
+                    Messages
+                </Button>
+              </SheetTrigger>
+              <SheetContent className="w-[400px] sm:w-[540px] p-0 border-l">
+                  <ChatInterface />
+              </SheetContent>
+            </Sheet>
         </nav>
 
       <div className="ml-auto flex items-center gap-4">
