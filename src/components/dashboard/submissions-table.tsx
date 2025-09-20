@@ -40,7 +40,7 @@ export function SubmissionsTable({ submissions }: { submissions: Submission[] })
     router.push(`/submissions/${id}`);
   };
 
-  const handleMessageStudent = (e: React.MouseEvent) => {
+  const handleMessageStudent = (e: Event) => {
     e.stopPropagation();
     openChat();
   };
@@ -111,7 +111,7 @@ export function SubmissionsTable({ submissions }: { submissions: Submission[] })
                   >
                     View
                   </DropdownMenuItem>
-                  <DropdownMenuItem onSelect={(e) => handleMessageStudent(e as unknown as React.MouseEvent)}>Message Student</DropdownMenuItem>
+                  <DropdownMenuItem onSelect={handleMessageStudent}>Message Student</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </TableCell>
