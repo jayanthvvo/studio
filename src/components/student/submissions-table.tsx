@@ -28,8 +28,7 @@ export function StudentSubmissionsTable({ submissions }: { submissions: Submissi
   const router = useRouter();
 
   const handleViewSubmission = (id: string) => {
-    // We can reuse the same submission detail page for now
-    router.push(`/submissions/${id}`);
+    router.push(`/student/submissions/${id}`);
   };
 
 
