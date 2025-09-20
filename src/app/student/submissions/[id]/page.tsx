@@ -20,16 +20,17 @@ const statusInfo: { [key: string]: { icon: React.ElementType, variant: "default"
 
 export default function StudentSubmissionPage({ params }: { params: { id: string } }) {
   const [submission, setSubmission] = useState<Submission | null>(null);
+  const id = params.id;
 
   useEffect(() => {
-    const foundSubmission = getSubmissionById(params.id);
+    const foundSubmission = getSubmissionById(id);
     if (foundSubmission) {
       setSubmission(foundSubmission);
     } else {
       // In a real app, you might want to show a proper not found page
       notFound();
     }
-  }, [params.id]);
+  }, [id]);
 
   if (!submission) {
     return null; // or a loading spinner
