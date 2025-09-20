@@ -1,3 +1,5 @@
+export type SubmissionStatus = 'Pending' | 'In Review' | 'Approved' | 'Requires Revisions';
+
 export type Submission = {
   id: string;
   student: {
@@ -5,7 +7,7 @@ export type Submission = {
     avatarUrl: string;
   };
   title: string;
-  status: 'Pending' | 'In Review' | 'Approved' | 'Requires Revisions';
+  status: SubmissionStatus;
   deadline: string;
   grade: string | null;
   submittedAt: string;

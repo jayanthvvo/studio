@@ -1,4 +1,6 @@
-import { getSubmissionById } from "@/lib/data";
+"use client";
+
+import { getSubmissionById, submissions as initialSubmissions } from "@/lib/data";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { ArrowLeft, CheckCircle, Clock, AlertCircle, FileSearch } from "lucide-react";
@@ -9,7 +11,8 @@ import { Separator } from "@/components/ui/separator";
 import SubmissionSummary from "@/components/ai/submission-summary";
 import PlagiarismCheck from "@/components/ai/plagiarism-check";
 import ReviewForm from "@/components/submission/review-form";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import type { Submission } from "@/lib/types";
 
 const statusInfo: { [key: string]: { icon: React.ElementType, variant: "default" | "secondary" | "destructive" | "outline" } } = {
   Approved: { icon: CheckCircle, variant: "default" },
@@ -19,11 +22,30 @@ const statusInfo: { [key: string]: { icon: React.ElementType, variant: "default"
 };
 
 export default function SubmissionPage({ params }: { params: { id: string } }) {
-  const submission = getSubmissionById(params.id);
+  const initialSubmission = getSubmissionById(params.id);
+  const [submission, setSubmission] = useState<Submission | undefined>(initialSubmission);
+
+  useEffect(() => {
+    // This is a workaround to update the submission data since we are using a static data source.
+    // In a real app, this would be handled by re-fetching the data or using a state management library.
+    const updatedSubmission = initialSubmissions.find(s => s.id === params.id);
+    if (JSON.stringify(updatedSubmission) !== JSON.stringify(submission)) {
+        setSubmission(updatedSubmission);
+    }
+  }, [params.id, submission]);
 
   if (!submission) {
     notFound();
   }
+
+  const handleReviewSave = (updatedSubmission: Submission) => {
+    // Update the submission in our mock data source.
+    const index = initialSubmissions.findIndex(s => s.id === updatedSubmission.id);
+    if (index !== -1) {
+      initialSubmissions[index] = updatedSubmission;
+    }
+    setSubmission(updatedSubmission);
+  };
   
   const StatusIcon = statusInfo[submission.status].icon;
 
@@ -71,10 +93,10 @@ export default function SubmissionPage({ params }: { params: { id: string } }) {
             <Card>
                 <CardHeader>
                     <CardTitle>Supervisor Review</CardTitle>
-                    <CardDescription>Provide feedback and a grade for this submission.</CardDescription>
+                    <CardDescription>Provide feedback, a grade, and a new status for this submission.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <ReviewForm submission={submission} />
+                    <ReviewForm submission={submission} onSave={handleReviewSave} />
                 </CardContent>
             </Card>
         </div>
