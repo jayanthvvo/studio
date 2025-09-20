@@ -45,7 +45,6 @@ export function SidebarItems() {
                 asChild
                 isActive={pathname === item.href}
                 tooltip={{ children: item.label }}
-                disabled={item.disabled}
               >
                 <Link href={item.href}>
                   <item.icon />
@@ -63,7 +62,7 @@ export function SidebarItems() {
                 </SidebarMenuButton>
               </SheetTrigger>
               <SheetContent className="w-[400px] sm:w-[540px] p-0 border-l">
-                  <ChatInterface />
+                  <ChatInterface perspective="supervisor" />
               </SheetContent>
             </Sheet>
           </SidebarMenuItem>

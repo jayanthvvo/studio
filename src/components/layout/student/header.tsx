@@ -48,7 +48,7 @@ export default function StudentHeader() {
                 </Button>
               </SheetTrigger>
               <SheetContent className="w-[400px] sm:w-[540px] p-0 border-l">
-                  <ChatInterface />
+                  <ChatInterface perspective="student" />
               </SheetContent>
             </Sheet>
         </nav>
