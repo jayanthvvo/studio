@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { ThesisFlowLogo } from "@/components/logo";
 import Link from "next/link";
-import { User, UserCog } from "lucide-react";
+import { User, UserCog, Shield } from "lucide-react";
 
 export default function LoginPage() {
   return (
@@ -35,6 +35,12 @@ export default function LoginPage() {
             <Link href="/login/supervisor">
               <UserCog className="mr-2" />
               Supervisor
+            </Link>
+          </Button>
+          <Button asChild variant="secondary">
+            <Link href="/login/admin">
+              <Shield className="mr-2" />
+              Admin
             </Link>
           </Button>
         </CardContent>
