@@ -12,7 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import SubmissionSummary from "@/components/ai/submission-summary";
 import PlagiarismCheck from "@/components/ai/plagiarism-check";
 import ReviewForm from "@/components/submission/review-form";
-import React, { useState, useEffect } from "react";
+import React, from "react";
 import type { Submission } from "@/lib/types";
 
 const statusInfo: { [key: string]: { icon: React.ElementType, variant: "default" | "secondary" | "destructive" | "outline" } } = {
@@ -24,16 +24,16 @@ const statusInfo: { [key: string]: { icon: React.ElementType, variant: "default"
 
 export default function SubmissionPage({ params }: { params: { id: string } }) {
   const { id } = params;
-  const [submission, setSubmission] = useState<Submission | null>(null);
+  const [submission, setSubmission] = React.useState<Submission | null>(null);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const foundSubmission = getSubmissionById(id);
     if (foundSubmission) {
       setSubmission(foundSubmission);
     }
   }, [id]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     // This is a workaround to update the submission data since we are using a static data source.
     // In a real app, this would be handled by re-fetching the data or using a state management library.
     if (submission) {
