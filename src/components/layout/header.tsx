@@ -17,6 +17,10 @@ export default function Header() {
   const handleLogout = () => {
     router.push('/login');
   };
+  
+  const handleSettings = () => {
+    router.push('/dashboard/settings');
+  };
 
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
@@ -58,8 +62,8 @@ export default function Header() {
         <DropdownMenuContent align="end" className="w-56">
           <DropdownMenuLabel>Dr. Evelyn Reed</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Profile</DropdownMenuItem>
-          <DropdownMenuItem>Settings</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleSettings}>Profile</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleSettings}>Settings</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
         </DropdownMenuContent>
