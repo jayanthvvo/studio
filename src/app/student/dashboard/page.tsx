@@ -11,6 +11,9 @@ import { submissions as initialSubmissions } from "@/lib/data";
 import { StudentSubmissionsTable } from "@/components/student/submissions-table";
 import { useState } from "react";
 import type { Submission } from "@/lib/types";
+import { Button } from "@/components/ui/button";
+import { PlusCircle } from "lucide-react";
+import Link from "next/link";
 
 export default function StudentDashboardPage() {
   // For this example, we'll filter submissions for a specific student.
@@ -28,6 +31,12 @@ export default function StudentDashboardPage() {
             Track and manage your dissertation drafts.
           </p>
         </div>
+        <Button asChild>
+          <Link href="/student/submissions/new">
+            <PlusCircle className="mr-2 h-4 w-4" />
+            New Submission
+          </Link>
+        </Button>
       </div>
 
       <Card>
