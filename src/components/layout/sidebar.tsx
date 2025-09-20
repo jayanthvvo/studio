@@ -15,11 +15,11 @@ import {
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { ThesisFlowLogo } from "@/components/logo";
 import { ChatInterface } from "../messaging/chat-interface";
-import { Button } from "../ui/button";
 
 export const navItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
   { href: "#", icon: BookCopy, label: "Submissions", disabled: true },
+  { href: "/dashboard/settings", icon: Settings, label: "Settings" },
 ];
 
 export function SidebarItems() {
@@ -65,14 +65,6 @@ export function SidebarItems() {
         </SidebarMenu>
       </SidebarContent>
       <SidebarFooter className="p-2 mt-auto border-t">
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton tooltip={{ children: 'Settings' }}>
-              <Settings />
-              <span>Settings</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
       </SidebarFooter>
     </>
   );
