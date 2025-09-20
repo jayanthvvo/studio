@@ -47,7 +47,7 @@ export default function ReviewForm({ submission }: { submission: Submission }) {
           id="grade"
           placeholder="e.g., A-, B+"
           value={grade}
-          onChange={(e) => setGrade(e.g.value)}
+          onChange={(e) => setGrade(e.target.value)}
           className="max-w-xs"
         />
       </div>
