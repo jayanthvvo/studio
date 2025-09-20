@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookCopy, LayoutDashboard, MessageSquare, Settings, User } from "lucide-react";
+import { BookCopy, LayoutDashboard, MessageSquare, Settings, User, GanttChartSquare } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -14,13 +14,14 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
-import { ThesisFlowLogo } from "@/components/logo";
+import { ThesisFlowLogo } from "../logo";
 import { ChatInterface } from "../messaging/chat-interface";
 import { useMessaging } from "@/contexts/messaging-context";
 
 export const navItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
   { href: "/dashboard/submissions", icon: BookCopy, label: "Submissions" },
+  { href: "/dashboard/timeline", icon: GanttChartSquare, label: "Timeline" },
   { href: "/dashboard/profile", icon: User, label: "Profile" },
   { href: "/dashboard/settings", icon: Settings, label: "Settings" },
 ];

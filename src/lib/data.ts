@@ -1,4 +1,4 @@
-import { Submission, Message } from '@/lib/types';
+import { Submission, Message, Milestone } from '@/lib/types';
 
 export const submissions: Submission[] = [
   {
@@ -66,6 +66,25 @@ export const messages: Message[] = [
     { id: '4', sender: 'supervisor', text: 'You\'re welcome. Let me know if you need help finding it.', timestamp: '10:06 AM' },
 ];
 
+export const milestones: Milestone[] = [
+  { id: 'm1', title: 'Dissertation Proposal', dueDate: '2024-07-20', status: 'Complete', submissionId: '1' },
+  { id: 'm2', title: 'Chapter 1: Introduction', dueDate: '2024-08-15', status: 'Complete', submissionId: '1' },
+  { id: 'm3', title: 'Chapter 2: Literature Review', dueDate: '2024-09-05', status: 'Pending' },
+  { id: 'm4', title: 'Chapter 3: Methodology', dueDate: '2024-09-25', status: 'Upcoming' },
+  { id: 'm5', title: 'Chapter 4: Results', dueDate: '2024-10-15', status: 'Upcoming' },
+  { id: 'm6', title: 'Final Draft', dueDate: '2024-11-15', status: 'Upcoming' },
+];
+
+
 export const getSubmissionById = (id: string): Submission | undefined => {
   return submissions.find((s) => s.id === id);
+};
+
+export const getMilestonesByStudent = (studentName: string): Milestone[] => {
+  // In a real app, you'd filter milestones by student ID.
+  // For this demo, we'll return all milestones for Alice Johnson.
+  if (studentName === "Alice Johnson") {
+    return milestones;
+  }
+  return [];
 };

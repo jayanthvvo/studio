@@ -21,3 +21,11 @@ export type Message = {
     text: string;
     timestamp: string;
 };
+
+export type Milestone = {
+  id: string;
+  title: string;
+  dueDate: string;
+  status: 'Complete' | 'Pending' | 'Upcoming';
+  submissionId?: string;
+};
