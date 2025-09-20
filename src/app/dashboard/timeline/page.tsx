@@ -19,6 +19,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Calendar } from "@/components/ui/calendar";
 import { useToast } from "@/hooks/use-toast";
 import { format } from 'date-fns';
+import { useRouter } from "next/navigation";
 
 const statusInfo = {
   Complete: { icon: CheckCircle, color: 'text-green-500' },
@@ -33,6 +34,7 @@ export default function TimelinePage() {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
   const [openPopoverId, setOpenPopoverId] = useState<string | null>(null);
   const { toast } = useToast();
+  const router = useRouter();
 
   useEffect(() => {
     setMilestones(getMilestonesByStudent(studentName));
@@ -113,7 +115,9 @@ export default function TimelinePage() {
                             </div>
                             <div className="flex items-center gap-2">
                                 {milestone.submissionId ? (
-                                    <Button variant="outline" size="sm">View Submission</Button>
+                                    <Button variant="outline" size="sm" onClick={() => router.push(`/submissions/${milestone.submissionId}`)}>View Submission</Button>
+                                ) : milestone.status === 'In Progress' ? (
+                                    <Button variant="secondary" size="sm" disabled>Submission Pending</Button>
                                 ) : (
                                     <Button variant="secondary" size="sm" disabled>No Submission</Button>
                                 )}
@@ -148,5 +152,6 @@ export default function TimelinePage() {
     </div>
   );
 }
+
 
 
