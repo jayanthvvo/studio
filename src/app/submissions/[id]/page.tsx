@@ -1,3 +1,4 @@
+
 "use client";
 
 import { getSubmissionById, submissions as initialSubmissions } from "@/lib/data";
@@ -22,23 +23,32 @@ const statusInfo: { [key: string]: { icon: React.ElementType, variant: "default"
 };
 
 export default function SubmissionPage({ params }: { params: { id: string } }) {
-  const id = React.use(params);
-  const initialSubmission = getSubmissionById(id.id);
-  const [submission, setSubmission] = useState<Submission | undefined>(initialSubmission);
+  const id = params.id;
+  const [submission, setSubmission] = useState<Submission | null>(null);
+
+  useEffect(() => {
+    const foundSubmission = getSubmissionById(id);
+    if (foundSubmission) {
+      setSubmission(foundSubmission);
+    }
+  }, [id]);
 
   useEffect(() => {
     // This is a workaround to update the submission data since we are using a static data source.
     // In a real app, this would be handled by re-fetching the data or using a state management library.
-    const updatedSubmission = initialSubmissions.find(s => s.id === id.id);
-    if (JSON.stringify(updatedSubmission) !== JSON.stringify(submission)) {
-        setSubmission(updatedSubmission);
+    if (submission) {
+      const updatedSubmission = initialSubmissions.find(s => s.id === id);
+      if (updatedSubmission && JSON.stringify(updatedSubmission) !== JSON.stringify(submission)) {
+          setSubmission(updatedSubmission);
+      }
     }
-  }, [id.id, submission]);
+  }, [id, submission]);
 
   if (!submission) {
-    notFound();
+    // Render a loading state or return null until the submission is loaded client-side
+    return null; 
   }
-
+  
   const handleReviewSave = (updatedSubmission: Submission) => {
     // Update the submission in our mock data source.
     const index = initialSubmissions.findIndex(s => s.id === updatedSubmission.id);
