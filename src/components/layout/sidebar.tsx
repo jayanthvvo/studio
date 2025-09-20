@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookCopy, LayoutDashboard, MessageSquare, Settings } from "lucide-react";
+import { BookCopy, LayoutDashboard, MessageSquare, Settings, User } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -19,6 +19,7 @@ import { ChatInterface } from "../messaging/chat-interface";
 export const navItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
   { href: "#", icon: BookCopy, label: "Submissions", disabled: true },
+  { href: "/dashboard/profile", icon: User, label: "Profile" },
   { href: "/dashboard/settings", icon: Settings, label: "Settings" },
 ];
 

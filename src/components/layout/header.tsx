@@ -22,6 +22,10 @@ export default function Header() {
     router.push('/dashboard/settings');
   };
 
+  const handleProfile = () => {
+    router.push('/dashboard/profile');
+  };
+
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
       <Sheet>
@@ -62,7 +66,7 @@ export default function Header() {
         <DropdownMenuContent align="end" className="w-56">
           <DropdownMenuLabel>Dr. Evelyn Reed</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={handleSettings}>Profile</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleProfile}>Profile</DropdownMenuItem>
           <DropdownMenuItem onClick={handleSettings}>Settings</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
