@@ -12,7 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import SubmissionSummary from "@/components/ai/submission-summary";
 import PlagiarismCheck from "@/components/ai/plagiarism-check";
 import ReviewForm from "@/components/submission/review-form";
-import React, from "react";
+import React from "react";
 import type { Submission } from "@/lib/types";
 
 const statusInfo: { [key: string]: { icon: React.ElementType, variant: "default" | "secondary" | "destructive" | "outline" } } = {
