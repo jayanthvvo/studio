@@ -36,6 +36,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         // In production, you should use Firebase Custom Claims.
         let userRole: string | null = null;
         const email = user.email || '';
+        
         if (email === 'admin@system.in') {
           userRole = 'admin';
         } else if (email.endsWith('@supervisor.in')) {
