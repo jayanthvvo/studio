@@ -29,6 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const auth = getAuth(app);
     const unsubscribe = onIdTokenChanged(auth, (user) => {
+      setLoading(true);
       if (user) {
         setUser(user);
         const email = user.email || '';
@@ -81,7 +82,7 @@ export function ProtectedRoute({ children, requiredRole }: { children: ReactNode
         }
     }, [user, role, loading, router, requiredRole, pathname]);
 
-    if (loading || !user || !role || role !== requiredRole) {
+    if (loading || !user || role !== requiredRole) {
         return (
              <div className="flex min-h-screen w-full items-center justify-center">
                 <Loader2 className="h-8 w-8 animate-spin" />
