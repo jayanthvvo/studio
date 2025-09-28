@@ -23,8 +23,8 @@ import { Loader2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function SupervisorRegisterPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("supervisor@supervisor.edu");
+  const [password, setPassword] = useState("password");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -76,7 +76,7 @@ export default function SupervisorRegisterPage() {
         <CardHeader>
           <CardTitle className="text-2xl">Supervisor Registration</CardTitle>
           <CardDescription>
-            Enter your details to create an account.
+            Use an email ending in @supervisor.edu to create a supervisor account.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -92,7 +92,7 @@ export default function SupervisorRegisterPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="supervisor@example.com"
+                placeholder="supervisor@supervisor.edu"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}

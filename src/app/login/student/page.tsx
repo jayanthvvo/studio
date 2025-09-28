@@ -23,7 +23,7 @@ import { Loader2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function StudentLoginPage() {
-  const [email, setEmail] = useState("a.johnson@university.edu");
+  const [email, setEmail] = useState("student@university.edu");
   const [password, setPassword] = useState("password");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -76,7 +76,7 @@ export default function StudentLoginPage() {
         <CardHeader>
           <CardTitle className="text-2xl">Student Login</CardTitle>
           <CardDescription>
-            Enter your student credentials to log in.
+            Enter your student credentials to log in. <br/> Use an email ending in @university.edu
           </CardDescription>
         </CardHeader>
         <CardContent>

@@ -31,13 +31,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const unsubscribe = onIdTokenChanged(auth, async (user) => {
       setLoading(true);
       if (user) {
-        // This is the secure, production-ready way to get roles from custom claims.
-        // This requires a backend (like Firebase Cloud Functions) to set the 'role' claim on a user.
-        const tokenResult = await user.getIdTokenResult();
-        const userRole = (tokenResult.claims.role as string) || null;
         setUser(user);
+        // This is a temporary, insecure way to assign roles for development.
+        // In production, you should use Firebase Custom Claims.
+        let userRole: string | null = null;
+        const email = user.email || '';
+        if (email === 'admin@system.edu') {
+          userRole = 'admin';
+        } else if (email.endsWith('@supervisor.edu')) {
+          userRole = 'supervisor';
+        } else if (email.endsWith('@university.edu')) {
+          userRole = 'student';
+        }
         setRole(userRole);
-
       } else {
         setUser(null);
         setRole(null);

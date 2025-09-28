@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -22,7 +23,7 @@ import { Loader2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function SupervisorLoginPage() {
-  const [email, setEmail] = useState("e.reed@university.edu");
+  const [email, setEmail] = useState("supervisor@supervisor.edu");
   const [password, setPassword] = useState("password");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -74,7 +75,7 @@ export default function SupervisorLoginPage() {
         <CardHeader>
           <CardTitle className="text-2xl">Supervisor Login</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account.
+            Use an email ending in @supervisor.edu
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -90,7 +91,7 @@ export default function SupervisorLoginPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="supervisor@university.edu"
+                placeholder="supervisor@supervisor.edu"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
