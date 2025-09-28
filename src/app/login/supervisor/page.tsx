@@ -46,12 +46,10 @@ export default function SupervisorLoginPage() {
       console.error("Firebase Auth Error:", error);
       let errorMessage = "An unknown error occurred.";
       switch (error.code) {
-        case 'auth/user-not-found':
         case 'auth/invalid-credential':
-              errorMessage = "Invalid email or password. Please try again or register if you are a new user.";
-              break;
-          case 'auth/wrong-password':
-              errorMessage = "Incorrect password. Please try again.";
+        case 'auth/user-not-found':
+        case 'auth/wrong-password':
+              errorMessage = "Invalid email or password. Please try again, or register if you're a new user.";
               break;
           case 'auth/invalid-email':
               errorMessage = "The email address is not valid.";
