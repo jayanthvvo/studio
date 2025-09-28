@@ -14,8 +14,8 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
-import { ThesisFlowLogo } from "../logo";
-import { ChatInterface } from "../messaging/chat-interface";
+import { ThesisFlowLogo } from "../../logo";
+import { ChatInterface } from "../../messaging/chat-interface";
 import { useMessaging } from "@/contexts/messaging-context";
 
 export const navItems = [
@@ -76,7 +76,7 @@ export function SidebarItems() {
 }
 
 
-export default function AppSidebar() {
+export default function SupervisorAppSidebar() {
   return (
     <Sidebar variant="sidebar" collapsible="icon" className="hidden md:flex flex-col">
       <SidebarItems />

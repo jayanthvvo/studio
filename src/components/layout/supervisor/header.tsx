@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Bell, PanelLeft, Search } from "lucide-react";
@@ -10,7 +11,7 @@ import { SidebarItems } from "./sidebar";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { useRouter } from "next/navigation";
 
-export default function Header() {
+export default function SupervisorHeader() {
   const supervisorAvatar = PlaceHolderImages.find(p => p.id === 'supervisor-avatar')?.imageUrl ?? "https://picsum.photos/seed/5/100/100";
   const router = useRouter();
 
