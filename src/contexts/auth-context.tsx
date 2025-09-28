@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -20,6 +21,17 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Temporary function to determine role based on email.
+// In a production app, this logic should be handled by a secure backend
+// using Firebase Custom Claims.
+const getRoleFromEmail = (email: string | null): string | null => {
+    if (!email) return null;
+    if (email.endsWith('@supervisor.edu')) return 'supervisor';
+    if (email.endsWith('@university.edu')) return 'student';
+    if (email === 'admin@system.edu') return 'admin';
+    return null;
+}
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [role, setRole] = useState<string | null>(null);
@@ -30,10 +42,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const unsubscribe = onIdTokenChanged(auth, async (user) => {
       setLoading(true);
       if (user) {
-        const tokenResult = await user.getIdTokenResult();
-        const userRole = (tokenResult.claims.role as string) || null;
+        // This is the temporary, insecure way of assigning roles for development.
+        // In a real app, you would get the role from the token claims.
+        const userRole = getRoleFromEmail(user.email);
         setUser(user);
         setRole(userRole);
+        
+        // This is the secure, production-ready way to get roles.
+        // It's commented out because we don't have a backend to set custom claims.
+        // const tokenResult = await user.getIdTokenResult();
+        // const userRole = (tokenResult.claims.role as string) || null;
+        // setUser(user);
+        // setRole(userRole);
+
       } else {
         setUser(null);
         setRole(null);

@@ -23,8 +23,8 @@ import { Loader2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function StudentRegisterPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("student@university.edu");
+  const [password, setPassword] = useState("password");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -34,6 +34,12 @@ export default function StudentRegisterPage() {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
+
+    if (!email.endsWith('@university.edu')) {
+        setError("For this demo, student emails must end with '@university.edu'");
+        setIsLoading(false);
+        return;
+    }
 
     const auth = getAuth(app);
     try {
@@ -76,7 +82,7 @@ export default function StudentRegisterPage() {
         <CardHeader>
           <CardTitle className="text-2xl">Student Registration</CardTitle>
           <CardDescription>
-            Create your student account to get started.
+            Use an email ending in <span className="font-bold text-foreground">@university.edu</span> to sign up.
           </CardDescription>
         </CardHeader>
         <CardContent>
