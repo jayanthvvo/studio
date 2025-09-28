@@ -3,6 +3,7 @@ import { Toaster } from '@/components/ui/toaster';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { MessagingProvider } from '@/contexts/messaging-context';
+import { AuthProvider } from '@/contexts/auth-context';
 
 export const metadata: Metadata = {
   title: 'ThesisFlow',
@@ -23,9 +24,11 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&display=swap" rel="stylesheet" />
       </head>
       <body className={cn('font-body antialiased')}>
-        <MessagingProvider>
-            {children}
-        </MessagingProvider>
+        <AuthProvider>
+          <MessagingProvider>
+              {children}
+          </MessagingProvider>
+        </AuthProvider>
         <Toaster />
       </body>
     </html>
