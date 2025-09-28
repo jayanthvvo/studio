@@ -23,8 +23,8 @@ import { Loader2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function SupervisorRegisterPage() {
-  const [email, setEmail] = useState("supervisor@supervisor.edu");
-  const [password, setPassword] = useState("password");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -34,12 +34,6 @@ export default function SupervisorRegisterPage() {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
-
-    if (!email.endsWith('@supervisor.edu')) {
-        setError("For this demo, supervisor emails must end with '@supervisor.edu'");
-        setIsLoading(false);
-        return;
-    }
 
     const auth = getAuth(app);
     try {
@@ -82,7 +76,7 @@ export default function SupervisorRegisterPage() {
         <CardHeader>
           <CardTitle className="text-2xl">Supervisor Registration</CardTitle>
           <CardDescription>
-            Use an email ending in <span className="font-bold text-foreground">@supervisor.edu</span> to sign up.
+            Enter your details to create an account.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -98,7 +92,7 @@ export default function SupervisorRegisterPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="supervisor@supervisor.edu"
+                placeholder="supervisor@example.com"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
