@@ -32,8 +32,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setLoading(true);
       if (user) {
         setUser(user);
-        // This is a temporary, insecure way to assign roles for development.
-        // In production, you should use Firebase Custom Claims.
+        
         let userRole: string | null = null;
         const email = user.email || '';
         
@@ -44,7 +43,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         } else if (email.endsWith('@university.in')) {
           userRole = 'student';
         }
+        
         setRole(userRole);
+
       } else {
         setUser(null);
         setRole(null);
@@ -80,8 +81,6 @@ export function ProtectedRoute({ children, requiredRole }: { children: ReactNode
             if (!user) {
                 router.push(`/login?redirect=${pathname}`);
             } else if (role !== requiredRole) {
-                // User is logged in but does not have the required role
-                // Redirect them to a more appropriate page or a generic login page
                 console.warn(`Redirecting user with role '${role}' from protected route requiring '${requiredRole}'.`);
                 router.push('/login'); 
             }
