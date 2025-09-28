@@ -5,6 +5,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardFooter
 } from "@/components/ui/card";
 import { ThesisFlowLogo } from "@/components/logo";
 import Link from "next/link";
@@ -37,13 +38,16 @@ export default function LoginPage() {
               Supervisor
             </Link>
           </Button>
-          <Button asChild variant="secondary">
+           <Button asChild variant="secondary">
             <Link href="/login/admin">
               <Shield className="mr-2" />
               Admin
             </Link>
           </Button>
         </CardContent>
+        <CardFooter className="text-center text-sm text-muted-foreground justify-center">
+            New Supervisor? <Button variant="link" asChild className="p-1"><Link href="/register/supervisor">Register here</Link></Button>
+        </CardFooter>
       </Card>
     </div>
   );
