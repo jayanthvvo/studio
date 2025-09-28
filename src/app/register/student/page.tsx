@@ -8,55 +8,56 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-  CardFooter
+  CardFooter,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ThesisFlowLogo } from "@/components/logo";
 import Link from "next/link";
 import { useState, FormEvent } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { app } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
-export default function StudentLoginPage() {
-  const [email, setEmail] = useState("a.johnson@university.edu");
-  const [password, setPassword] = useState("password");
+export default function StudentRegisterPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
 
-  const handleLogin = async (e: FormEvent) => {
+  const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
 
     const auth = getAuth(app);
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await createUserWithEmailAndPassword(auth, email, password);
       toast({
-        title: "Login Successful",
-        description: "Welcome back!",
+        title: "Registration Successful",
+        description: "Your account has been created. Welcome!",
       });
       router.push("/student/dashboard");
     } catch (error: any) {
       console.error("Firebase Auth Error:", error);
       let errorMessage = "An unknown error occurred.";
-       switch (error.code) {
-        case 'auth/invalid-credential':
-        case 'auth/user-not-found':
-        case 'auth/wrong-password':
-              errorMessage = "Invalid email or password. Please try again.";
+      switch (error.code) {
+          case 'auth/email-already-in-use':
+              errorMessage = "This email is already registered. Please log in instead.";
+              break;
+          case 'auth/weak-password':
+              errorMessage = "The password is too weak. Please use at least 6 characters.";
               break;
           case 'auth/invalid-email':
               errorMessage = "The email address is not valid.";
               break;
           default:
-              errorMessage = "Failed to log in. Please try again later.";
+              errorMessage = "Failed to register. Please try again later.";
               break;
       }
       setError(errorMessage);
@@ -64,7 +65,6 @@ export default function StudentLoginPage() {
       setIsLoading(false);
     }
   };
-
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background p-4">
@@ -74,21 +74,21 @@ export default function StudentLoginPage() {
       </div>
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle className="text-2xl">Student Login</CardTitle>
+          <CardTitle className="text-2xl">Student Registration</CardTitle>
           <CardDescription>
-            Enter your student credentials to log in.
+            Create your student account to get started.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleLogin} className="grid gap-4">
-             {error && (
+          <form onSubmit={handleRegister} className="grid gap-4">
+            {error && (
                 <Alert variant="destructive">
-                    <AlertTitle>Login Failed</AlertTitle>
+                    <AlertTitle>Registration Failed</AlertTitle>
                     <AlertDescription>{error}</AlertDescription>
                 </Alert>
             )}
             <div className="grid gap-2">
-              <Label htmlFor="email">Student Email</Label>
+              <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -100,15 +100,7 @@ export default function StudentLoginPage() {
               />
             </div>
             <div className="grid gap-2">
-              <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
-                <Link
-                  href="#"
-                  className="ml-auto inline-block text-sm underline"
-                >
-                  Forgot your password?
-                </Link>
-              </div>
+              <Label htmlFor="password">Password</Label>
               <Input 
                 id="password" 
                 type="password" 
@@ -120,12 +112,12 @@ export default function StudentLoginPage() {
             </div>
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Login
+              Create Account
             </Button>
           </form>
         </CardContent>
-         <CardFooter className="text-center text-sm text-muted-foreground justify-center">
-            Don't have an account? <Button variant="link" asChild className="p-1"><Link href="/register/student">Register</Link></Button>
+        <CardFooter className="text-center text-sm text-muted-foreground justify-center">
+            Already have an account? <Button variant="link" asChild className="p-1"><Link href="/login/student">Log in</Link></Button>
         </CardFooter>
       </Card>
     </div>

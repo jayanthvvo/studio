@@ -45,8 +45,9 @@ export default function LoginPage() {
             </Link>
           </Button>
         </CardContent>
-        <CardFooter className="text-center text-sm text-muted-foreground justify-center">
-            New Supervisor? <Button variant="link" asChild className="p-1"><Link href="/register/supervisor">Register here</Link></Button>
+        <CardFooter className="flex-col gap-2 text-center text-sm text-muted-foreground justify-center">
+            <div className="flex items-center">New Student? <Button variant="link" asChild className="p-1"><Link href="/register/student">Register here</Link></Button></div>
+            <div className="flex items-center">New Supervisor? <Button variant="link" asChild className="p-1"><Link href="/register/supervisor">Register here</Link></Button></div>
         </CardFooter>
       </Card>
     </div>
