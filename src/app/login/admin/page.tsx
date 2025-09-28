@@ -21,7 +21,7 @@ import { Loader2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function AdminLoginPage() {
-  const [email, setEmail] = useState("admin@system.edu");
+  const [email, setEmail] = useState("admin@system.in");
   const [password, setPassword] = useState("password");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -73,7 +73,7 @@ export default function AdminLoginPage() {
         <CardHeader>
           <CardTitle className="text-2xl">Admin Login</CardTitle>
           <CardDescription>
-            Use the email admin@system.edu
+            Use the email admin@system.in
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -89,7 +89,7 @@ export default function AdminLoginPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="admin@system.edu"
+                placeholder="admin@system.in"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
