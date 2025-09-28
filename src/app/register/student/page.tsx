@@ -80,7 +80,7 @@ export default function StudentRegisterPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleRegister} className="grid gap-4">
+          <form onSubmit={handleRegister} className="grid gap-4" suppressHydrationWarning>
             {error && (
                 <Alert variant="destructive">
                     <AlertTitle>Registration Failed</AlertTitle>

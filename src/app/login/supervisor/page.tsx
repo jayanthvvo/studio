@@ -79,7 +79,7 @@ export default function SupervisorLoginPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleLogin} className="grid gap-4">
+          <form onSubmit={handleLogin} className="grid gap-4" suppressHydrationWarning>
             {error && (
                 <Alert variant="destructive">
                     <AlertTitle>Login Failed</AlertTitle>

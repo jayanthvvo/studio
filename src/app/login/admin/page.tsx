@@ -77,7 +77,7 @@ export default function AdminLoginPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleLogin} className="grid gap-4">
+          <form onSubmit={handleLogin} className="grid gap-4" suppressHydrationWarning>
             {error && (
                 <Alert variant="destructive">
                     <AlertTitle>Login Failed</AlertTitle>
