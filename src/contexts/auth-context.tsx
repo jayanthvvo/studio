@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           userRole = 'admin';
         } else if (email.endsWith('@supervisor.in')) {
           userRole = 'supervisor';
-        } else if (email.endsWith('@university.in')) {
+        } else if (email.endsWith('@presidencyuniversity.in')) {
           userRole = 'student';
         }
         setRole(userRole);
@@ -73,13 +73,20 @@ export function ProtectedRoute({ children, requiredRole }: { children: ReactNode
     const pathname = usePathname();
 
     useEffect(() => {
-        if (!loading) {
-            if (!user) {
-                router.push(`/login?redirect=${pathname}`);
-            } else if (role !== requiredRole) {
-                router.push('/login'); 
-            }
+        if (loading) {
+            return; // Do nothing while loading
         }
+
+        if (!user) {
+            router.push(`/login?redirect=${pathname}`); 
+            return;
+        }
+
+        if (role !== requiredRole) {
+            router.push('/login');
+            return;
+        }
+
     }, [user, role, loading, router, requiredRole, pathname]);
 
     if (loading || !user || role !== requiredRole) {

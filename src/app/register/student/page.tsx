@@ -23,7 +23,7 @@ import { Loader2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function StudentRegisterPage() {
-  const [email, setEmail] = useState("student@university.in");
+  const [email, setEmail] = useState("student@presidencyuniversity.in");
   const [password, setPassword] = useState("password");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -76,7 +76,7 @@ export default function StudentRegisterPage() {
         <CardHeader>
           <CardTitle className="text-2xl">Student Registration</CardTitle>
           <CardDescription>
-            Use an email ending in @university.in to create a student account.
+            Use an email ending in @presidencyuniversity.in to create a student account.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -92,7 +92,7 @@ export default function StudentRegisterPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="student@university.in"
+                placeholder="student@presidencyuniversity.in"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
