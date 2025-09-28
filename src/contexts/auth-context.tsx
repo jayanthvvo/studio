@@ -28,14 +28,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const auth = getAuth(app);
-    const unsubscribe = onIdTokenChanged(auth, async (user) => {
-      setLoading(true);
+    const unsubscribe = onIdTokenChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        
-        let userRole: string | null = null;
         const email = user.email || '';
-        
+        let userRole: string | null = null;
         if (email === 'admin@system.in') {
           userRole = 'admin';
         } else if (email.endsWith('@supervisor.in')) {
@@ -43,9 +40,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         } else if (email.endsWith('@university.in')) {
           userRole = 'student';
         }
-        
         setRole(userRole);
-
       } else {
         setUser(null);
         setRole(null);
@@ -79,14 +74,18 @@ export function ProtectedRoute({ children, requiredRole }: { children: ReactNode
     useEffect(() => {
         if (!loading) {
             if (!user) {
+                // If not loading and no user, redirect to login
                 router.push(`/login?redirect=${pathname}`);
             } else if (role !== requiredRole) {
-                console.warn(`Redirecting user with role '${role}' from protected route requiring '${requiredRole}'.`);
+                // If not loading, user exists, but role doesn't match, redirect to login
+                // This prevents users from accessing routes they are not authorized for
                 router.push('/login'); 
             }
         }
     }, [user, role, loading, router, requiredRole, pathname]);
 
+    // While loading, or if the user is not authenticated yet, or role doesn't match, show a spinner.
+    // The useEffect above will handle the redirection.
     if (loading || !user || role !== requiredRole) {
         return (
              <div className="flex min-h-screen w-full items-center justify-center">
@@ -95,5 +94,6 @@ export function ProtectedRoute({ children, requiredRole }: { children: ReactNode
         );
     }
 
+    // If all checks pass, render the children
     return <>{children}</>;
 }
